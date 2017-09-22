@@ -1,0 +1,11 @@
+<launch>   
+
+    <node name="goal_tester" pkg="swarm" type="goal_tester">
+        <param name="cmd_vel_topic" type="string" value="/cmd_vel" />
+        <param name="odom_topic" type="string" value="/odom" />
+        <param name="base_link" type="string" value="base_link" />
+        <param name="odom_link" type="string" value="odom" />
+        
+    </node>
+
+</launch>

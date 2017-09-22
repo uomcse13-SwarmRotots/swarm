@@ -1,0 +1,9 @@
+<launch>   
+
+    <node name="navigator" pkg="swarm" type="navigator">
+        <param name="cmd_vel_topic" type="string" value="/cmd_vel" />
+        <param name="odom_topic" type="string" value="/odom" />
+        <param name="point_cloud_topic" type="string" value="/depth_camera/depth_camera/depth/points" />
+    </node>
+
+</launch>

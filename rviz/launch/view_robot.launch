@@ -1,0 +1,8 @@
+<launch>
+  <param name="use_gui" value="true"/>
+  <arg name="robot_name" default="" />
+
+  <arg name="config" default="robot" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find swarm)/rviz/rviz/$(arg config).rviz" />
+  <!--<remap from="map" to="$(arg robot_name)/map" />-->
+</launch>

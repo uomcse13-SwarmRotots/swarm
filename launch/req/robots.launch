@@ -1,0 +1,94 @@
+<launch>
+    <arg name="show_rviz" default="true"/>
+    <!-- No namespace here as we will share this description. 
+        Access with slash at the beginning -->
+    <!--<param name="robot_description" command="$(find xacro)/xacro '$(find simple_hexapod_description)/urdf/simple_hexapod.xacro'" />-->
+    <!--<param name="robot_description" command="$(find xacro)/xacro.py '$(find robot_models)/models/labrob/labrob.urdf.xacro'"/>-->
+    <!--<param name="robot_description" command="$(find xacro)/xacro.py '$(find mybot_description)/urdf/mybot.xacro'"/>-->
+    <!--<param name="robot_description" command="$(find xacro)/xacro.py '$(find robot_models)/models/jackal/urdf/jackal.urdf.xacro'"/>-->
+
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(find robot_models)/models/labrob/urdf/labrob.urdf.xacro'" />
+
+
+    <!--<include file="$(find robot_models)/models/jackal/launch/description.launch">
+        <arg name="config" value="$(arg config)" />
+    </include>-->
+  
+  
+    <!-- BEGIN ROBOT 1-->
+    <group >
+    <!--<group ns="robot1">-->
+        <!--<param name="tf_prefix" value="robot1_tf" />-->
+
+        <!--<include file="$(find robot_models)/models/jackal/control/launch/control.launch" >
+            <arg name="robot_name"  value="robot1" />
+        </include>-->
+
+        <!--<include file="$(find robot_models)/models/jackal/control/launch/teleop.launch">
+            <arg name="joystick" value="false"/>
+            <arg name="robot_name"  value="robot1" />
+        </include>-->
+
+        <include file="$(find swarm)/launch/req/robot.launch" >
+            <arg name="init_pose" value="-x 1 -y 1 -z 1.0" />
+            <arg name="robot_name"  value="robot1" />        
+        </include>
+
+        <include file="$(find swarm)/navigation/launch/odom_navigation_demo.launch" >
+            <arg name="robot_name"  value="robot1" />
+        </include>
+           
+        <!--<include file="$(find swarm)/navigation/launch/include/gmapping.launch">
+            <arg name="robot_name"  value="robot1" />
+            <arg name="tf_prefix" value="robot1_tf" />
+        </include>-->
+
+        <group if="$(arg show_rviz)">
+            <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find robot_models)/models/labrob/launch/gazebo.rviz"/>
+
+            
+            <rosparam file="$(find robot_models)/models/labrob/control/config/joint_position_control.yaml" command="load" />
+        
+            <node name="labrob_controller" pkg="controller_manager" type="spawner" output="screen"
+            args="joint_state_controller" />
+
+            
+            <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+                <param name="publish_frequency" value="50"/> 
+            </node>
+        </group>
+        <!--<include file="$(find swarm)/rviz/launch/view_robot.launch">
+            <arg name="config" value="gmapping"/>
+            <arg name="robot_name"  value="robot1" /> 
+        </include>-->
+    </group>
+
+     <!--<group ns="robot2">
+        <param name="tf_prefix" value="robot2_tf" />
+
+      
+        <include file="$(find swarm)/launch/req/robot.launch" >
+            <arg name="init_pose" value="-x -1 -y 1 -z 1.0" />
+            <arg name="robot_name"  value="robot2" />        
+        </include>
+
+        <include file="$(find swarm)/navigation/launch/odom_navigation_demo.launch" >
+            <arg name="robot_name"  value="robot2" />
+        </include>
+           
+       
+    </group>-->
+
+    <!-- BEGIN ROBOT 2-->
+    <!--<group ns="robot2">
+        <param name="tf_prefix" value="robot2_tf" />
+        <include file="$(find swarm)/launch/req/robot.launch" >
+            <arg name="init_pose" value="-x -1 -y 1 -z 1.0" />
+            <arg name="robot_name"  value="Robot2" />        
+        </include>
+        <include file="$(find swarm)/navigation/launch/odom_navigation_demo.launch"/>
+    </group>-->
+
+    <!--<include file="$(find simple_hexapod_control)/launch/multiple_robot_control.launch"/> -->
+
+</launch>

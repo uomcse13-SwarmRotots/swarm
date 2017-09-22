@@ -1,0 +1,22 @@
+<launch>
+    <arg name="robot_name"/>
+    <arg name="init_pose"/>
+    
+
+
+    <!-- spawn the robot model -->
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+	      args="-urdf -model $(arg robot_name) -param /robot_description $(arg init_pose)" />
+
+    <!--<include file="$(find robot_models)/models/jackal/control/launch/control.launch" />-->
+    <!--<include file="$(find robot_models)/models/jackal/control/launch/teleop.launch">
+        <arg name="joystick" value="false"/>
+    </include>-->
+
+    <!--<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />-->
+    <!-- The odometry estimator, throttling, fake laser etc. go here -->
+    <!-- All the stuff as from usual robot launch file -->
+
+    <!--<node name="simple_hexapod_walker" pkg="simple_hexapod_gazebo" type="walker.py" />-->
+
+</launch>
