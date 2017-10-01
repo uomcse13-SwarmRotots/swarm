@@ -237,6 +237,10 @@ namespace swarm_navigator {
         ROS_INFO("robot: [%f]", yaw_robot);
         ROS_INFO("goal: [%f]", yaw_goal);
         ROS_INFO("diff: [%f]", yaw_goal_robot_diff);
+        ROS_INFO("Robot:(x,y,z) - ([%f],[%f],[%f])", 
+                                        current_position.pose.position.x,
+                                        current_position.pose.position.y,
+                                        current_position.pose.position.z);
 
         bool clockwise = true;
 
@@ -258,7 +262,7 @@ namespace swarm_navigator {
         turn(clockwise,yaw_goal_robot_diff);
         double distance = hypot(current_position.pose.position.x - goal.pose.position.x
                     , current_position.pose.position.y - goal.pose.position.y);
-
+        ROS_INFO("distance: [%f]", distance);
         driveForward(distance);        
        
         return true;
